@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reset RSVP</title>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#FAF6EE;
+  font-family:'Tajawal',Arial,sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  direction:rtl;
+}
+.card {
+  background:#fff;
+  border-radius:24px;
+  padding:40px 32px;
+  max-width:320px;
+  width:90%;
+  text-align:center;
+  box-shadow:0 4px 24px rgba(196,154,60,0.15);
+  border:1px solid rgba(196,154,60,0.2);
+}
+.title {
+  font-family:'Aref Ruqaa',serif;
+  font-size:1.4rem;
+  color:#8B6914;
+  margin-bottom:8px;
+}
+.sub {
+  font-size:0.85rem;
+  color:#9B8660;
+  margin-bottom:28px;
+  line-height:1.7;
+}
+.btn {
+  display:block;
+  width:100%;
+  padding:15px;
+  border-radius:50px;
+  font-family:'Aref Ruqaa',serif;
+  font-size:1.1rem;
+  cursor:pointer;
+  border:none;
+  margin-bottom:12px;
+  -webkit-appearance:none;
+}
+.btn-gold {
+  background:linear-gradient(135deg,#8B6914,#C49A3C,#D4AF5A);
+  color:#fff;
+  box-shadow:0 4px 16px rgba(196,154,60,0.35);
+}
+.btn-outline {
+  background:#fff;
+  color:#8B6914;
+  border:1.5px solid #C49A3C;
+}
+.result {
+  margin-top:16px;
+  font-family:'Aref Ruqaa',serif;
+  font-size:1rem;
+  color:#2E7D32;
+  display:none;
+}
+.gdiv {
+  width:80px;height:1px;
+  background:linear-gradient(90deg,transparent,#C49A3C,transparent);
+  margin:16px auto;
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div style="font-size:2rem;margin-bottom:12px;">🔓</div>
+  <div class="title">إعادة تعيين الجهاز</div>
+  <div class="sub">اضغط على الزر لحذف بيانات التسجيل من هذا الجهاز وإعادة تفعيل الدعوة</div>
+  <div class="gdiv"></div>
+
+  <div onclick="resetAll()" class="btn btn-gold">إعادة تعيين جميع الدعوات</div>
+  <div onclick="resetFardi()" class="btn btn-outline">إعادة تعيين الدعوة الفردية فقط</div>
+  <div onclick="resetThunai()" class="btn btn-outline">إعادة تعيين الدعوة الثنائية فقط</div>
+  <div onclick="resetThulathi()" class="btn btn-outline">إعادة تعيين الدعوة الثلاثية فقط</div>
+
+  <div class="result" id="result">✅ تم إعادة التعيين بنجاح!</div>
+</div>
+
+<script>
+var KEYS = {
+  fardi:    ['rsvp_submitted_fardi',    'rsvp_submitted_fardi_type'],
+  thunai:   ['rsvp_submitted_thunai',   'rsvp_submitted_thunai_type'],
+  thulathi: ['rsvp_submitted_thulathi', 'rsvp_submitted_thulathi_type']
+};
+
+function showResult() {
+  var el = document.getElementById('result');
+  el.style.display = 'block';
+  setTimeout(function() { el.style.display = 'none'; }, 3000);
+}
+
+function resetAll() {
+  try {
+    Object.values(KEYS).forEach(function(keys) {
+      keys.forEach(function(k) { localStorage.removeItem(k); });
+    });
+    showResult();
+  } catch(e) { alert('خطأ: ' + e); }
+}
+
+function resetFardi() {
+  try {
+    KEYS.fardi.forEach(function(k) { localStorage.removeItem(k); });
+    showResult();
+  } catch(e) { alert('خطأ: ' + e); }
+}
+
+function resetThunai() {
+  try {
+    KEYS.thunai.forEach(function(k) { localStorage.removeItem(k); });
+    showResult();
+  } catch(e) { alert('خطأ: ' + e); }
+}
+
+function resetThulathi() {
+  try {
+    KEYS.thulathi.forEach(function(k) { localStorage.removeItem(k); });
+    showResult();
+  } catch(e) { alert('خطأ: ' + e); }
+}
+</script>
+
+</body>
+</html>
